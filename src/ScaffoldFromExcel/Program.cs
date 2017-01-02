@@ -19,7 +19,7 @@ namespace ScaffoldFromExcel
             {
                 foreach (var filePath in Directory.GetFiles(AppContext.BaseDirectory + @"\BaseFiles"))
                 {
-                    writer.WriteFiles(Extensions.ReadFile(filePath), Path.GetExtension(filePath));
+                    writer.WriteFiles(Extensions.ReadFile(filePath), Path.GetFileName(filePath));
                 }
             }
 

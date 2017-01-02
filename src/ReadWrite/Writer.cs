@@ -23,11 +23,11 @@ namespace ReadWrite
             Directory.CreateDirectory(_linesDirectory);
         }
 
-        public void WriteFiles(string baseString, string extension)
+        public void WriteFiles(string baseString, string fileName)
         {
             foreach (var model in _modelList)
             {
-                using (StreamWriter file = File.CreateText(_filesDirectory + @"\" + model.Title.FormatedText() + extension))
+                using (StreamWriter file = File.CreateText(_filesDirectory + @"\" + model.Title.FormatedText() + fileName))
                 {
                     file.WriteLine(ModelToString(baseString, model));
                 }
@@ -77,7 +77,7 @@ namespace ReadWrite
 
         private string RemoveListIndicators(string input)
         {
-            var lines = Regex.Split(input, "\n").ToList();
+            var lines = Regex.Split(input, "\r\n|\r|\n").ToList();
             lines.RemoveAt(0);
             lines.RemoveAt(lines.Count - 1);
             return string.Join(Environment.NewLine, lines.ToArray());
@@ -92,7 +92,6 @@ namespace ReadWrite
                 output = output.Replace(Extensions.fill_item, item);
                 output = output.Replace(Extensions.fill_fitem, item.FormatedText());
             }
-
             return output;
         }
 
