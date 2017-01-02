@@ -22,9 +22,8 @@ namespace ReadWrite
 
         public static string FormatedText(this string input)
         {
-            TextInfo textInfo = new CultureInfo("en-US").TextInfo;
             StringBuilder sb = new StringBuilder();
-            foreach (char c in textInfo.ToLower(input))
+            foreach (char c in input.ToTitleCase())
             {
                 if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
                 {
@@ -32,6 +31,18 @@ namespace ReadWrite
                 }
             }
             return sb.ToString();
+        }
+
+        public static string ToTitleCase(this string str)
+        {
+            var tokens = str.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            for (var i = 0; i < tokens.Length; i++)
+            {
+                var token = tokens[i];
+                tokens[i] = token.Substring(0, 1).ToUpper() + token.Substring(1);
+            }
+
+            return string.Join(" ", tokens);
         }
 
         public static string ReadFile(string filePath)
