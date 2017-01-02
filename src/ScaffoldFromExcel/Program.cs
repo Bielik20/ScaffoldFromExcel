@@ -15,13 +15,13 @@ namespace ScaffoldFromExcel
             var modelList = reader.GetModelList();
 
             var a = Read(AppContext.BaseDirectory + @"\aaa.txt");
-            var writer = new Writer();
-            writer.ModelToString(a, modelList[0]);
+            var writer = new Writer(modelList);
+            writer.WriteFiles(a, Path.GetExtension("test.cs"));
+            writer.WriteLines(a, "test.cs");
         }
 
         public static string Read(string filePath)
         {
-            
             try
             {
                 using (StreamReader sr = File.OpenText(filePath))

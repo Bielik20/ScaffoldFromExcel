@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,9 +9,45 @@ namespace ReadWrite
 {
     public class Writer
     {
-        List<Model> modelList;
+        readonly List<Model> _modelList;
+        readonly string _filesDirectory;
+        readonly string _linesDirectory;
 
-        public string ModelToString(string baseString, Model model)
+        public Writer(List<Model> modelList)
+        {
+            _modelList = modelList;
+            _filesDirectory = AppContext.BaseDirectory + @"\Output_Files";
+            _linesDirectory = AppContext.BaseDirectory + @"\Output_Lines";
+            Directory.CreateDirectory(_filesDirectory);
+            Directory.CreateDirectory(_linesDirectory);
+        }
+
+        public void WriteFiles(string baseString, string extension)
+        {
+            foreach (var model in _modelList)
+            {
+                using (StreamWriter file = File.CreateText(_filesDirectory + @"\" + model.Title.FormatedText() + extension))
+                {
+                    file.WriteLine(ModelToString(baseString, model));
+                }
+            }
+        }
+
+        public void WriteLines(string baseString, string fileName)
+        {
+            var lines = "";
+            foreach (var model in _modelList)
+            {
+                lines += ModelToString(baseString, model);
+            }
+
+            using (StreamWriter file = File.CreateText(_linesDirectory + @"\" + fileName))
+            {
+                file.WriteLine(lines);
+            }
+        }
+
+        private string ModelToString(string baseString, Model model)
         {
             var output = baseString;
 
