@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ReadWrite
@@ -53,13 +54,14 @@ namespace ReadWrite
 
             while (true)
             {
-                var startIndex = output.IndexOf(Extensions.start_list);
-                var endIndex = output.IndexOf(Extensions.end_list);
+                var lines = Regex.Split(output, "\r\n|\r|\n").ToList();
+                var startIndex = IndexOfString(lines, Extensions.start_list);
+                var endIndex = IndexOfString(lines, Extensions.end_list);
                 if (startIndex == -1 || endIndex == -1)
                 {
                     break;
                 }
-                var substring = output.Substring(startIndex, endIndex - startIndex + Extensions.end_list.Length);
+                var substring = string.Join(Environment.NewLine, lines.GetRange(startIndex, endIndex - startIndex + 1).ToArray());
                 var clearSubstring = RemoveListIndicators(substring);
 
                 var listOutput = "";
@@ -75,8 +77,10 @@ namespace ReadWrite
 
         private string RemoveListIndicators(string input)
         {
-            var output = input.Remove(0, Extensions.start_list.Length);
-            return output.Remove(output.IndexOf(Extensions.end_list));
+            var lines = Regex.Split(input, "\n").ToList();
+            lines.RemoveAt(0);
+            lines.RemoveAt(lines.Count - 1);
+            return string.Join(Environment.NewLine, lines.ToArray());
         }
 
         private string ReplacePlaceholders(string input, Model model, string item = null)
@@ -90,6 +94,16 @@ namespace ReadWrite
             }
 
             return output;
+        }
+
+        private int IndexOfString(List<string> lines, string searchFor)
+        {
+            for (int i = 0; i < lines.Count; i++)
+            {
+                if (lines[i].Contains(searchFor))
+                    return i;
+            }
+            return -1;
         }
     }
 }
