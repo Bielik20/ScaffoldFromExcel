@@ -16,8 +16,8 @@ namespace ReadWrite
         public Writer(List<Model> modelList)
         {
             _modelList = modelList;
-            _filesDirectory = AppContext.BaseDirectory + @"\Output_Files";
-            _linesDirectory = AppContext.BaseDirectory + @"\Output_Lines";
+            _filesDirectory = AppContext.BaseDirectory + @"\OutputFiles";
+            _linesDirectory = AppContext.BaseDirectory + @"\OutputLines";
             Directory.CreateDirectory(_filesDirectory);
             Directory.CreateDirectory(_linesDirectory);
         }

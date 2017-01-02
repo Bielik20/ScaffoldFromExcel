@@ -13,27 +13,22 @@ namespace ScaffoldFromExcel
         {
             var reader = new ExcelReader(AppContext.BaseDirectory + @"\input.xlsx");
             var modelList = reader.GetModelList();
-
-            var a = Read(AppContext.BaseDirectory + @"\aaa.txt");
             var writer = new Writer(modelList);
-            writer.WriteFiles(a, Path.GetExtension("test.cs"));
-            writer.WriteLines(a, "test.cs");
-        }
 
-        public static string Read(string filePath)
-        {
-            try
+            if (Directory.Exists(AppContext.BaseDirectory + @"\BaseFiles"))
             {
-                using (StreamReader sr = File.OpenText(filePath))
+                foreach (var filePath in Directory.GetFiles(AppContext.BaseDirectory + @"\BaseFiles"))
                 {
-                    return sr.ReadToEnd();
+                    writer.WriteFiles(Extensions.ReadFile(filePath), Path.GetExtension(filePath));
                 }
             }
-            catch (Exception e)
+
+            if (Directory.Exists(AppContext.BaseDirectory + @"\BaseLines"))
             {
-                Console.WriteLine("The file could not be read:\n");
-                Console.WriteLine(e.Message);
-                return "";
+                foreach (var filePath in Directory.GetFiles(AppContext.BaseDirectory + @"\BaseLines"))
+                {
+                    writer.WriteLines(Extensions.ReadFile(filePath), Path.GetFileName(filePath));
+                }
             }
         }
     }

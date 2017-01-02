@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,23 @@ namespace ReadWrite
                 }
             }
             return sb.ToString();
+        }
+
+        public static string ReadFile(string filePath)
+        {
+            try
+            {
+                using (StreamReader sr = File.OpenText(filePath))
+                {
+                    return sr.ReadToEnd();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:\n");
+                Console.WriteLine(e.Message);
+                return "";
+            }
         }
     }
 }
