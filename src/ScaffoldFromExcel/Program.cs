@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ReadWrite;
+using System.IO;
 
 namespace ScaffoldFromExcel
 {
@@ -10,8 +11,30 @@ namespace ScaffoldFromExcel
     {
         public static void Main(string[] args)
         {
-            ExcelReader reader = new ExcelReader(@"C:\Users\Bielik\git\ScaffoldFromExcel\src\ScaffoldFromExcel\bin\Debug\netcoreapp1.0\input.xlsx");
+            var reader = new ExcelReader(AppContext.BaseDirectory + @"\input.xlsx");
             var modelList = reader.GetModelList();
+
+            var a = Read(AppContext.BaseDirectory + @"\aaa.txt");
+            var writer = new Writer();
+            writer.ModelToString(a, modelList[0]);
+        }
+
+        public static string Read(string filePath)
+        {
+            
+            try
+            {
+                using (StreamReader sr = File.OpenText(filePath))
+                {
+                    return sr.ReadToEnd();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:\n");
+                Console.WriteLine(e.Message);
+                return "";
+            }
         }
     }
 }
