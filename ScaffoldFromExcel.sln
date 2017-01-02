@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F410D35C-B629-480C-A2EA-677C9F4CFBB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2781E03F-AB89-4936-A85F-2C39B368E320}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ScaffoldFromExcel", "src\ScaffoldFromExcel\ScaffoldFromExcel.xproj", "{27EC346F-3DD2-4CAA-8218-F4C30F528209}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27EC346F-3DD2-4CAA-8218-F4C30F528209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27EC346F-3DD2-4CAA-8218-F4C30F528209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27EC346F-3DD2-4CAA-8218-F4C30F528209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27EC346F-3DD2-4CAA-8218-F4C30F528209}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{27EC346F-3DD2-4CAA-8218-F4C30F528209} = {F410D35C-B629-480C-A2EA-677C9F4CFBB3}
+	EndGlobalSection
+EndGlobal
